@@ -1,0 +1,17 @@
+{
+  "name": "convert",
+  "version": "1.0.0",
+  "description": "AWS Lamnda function to convert .GPX files into geoJSON files",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "AWS",
+    "Lambda",
+    "GPX",
+    "geoJSON"
+  ],
+  "author": "Chris Walker",
+  "license": "ISC"
+}
