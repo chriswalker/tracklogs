@@ -1,0 +1,5 @@
+todo.txt
+*.gpx
+*.fit
+*.zip
+node_modules/
