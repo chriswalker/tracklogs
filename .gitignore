@@ -3,3 +3,4 @@ todo.txt
 *.fit
 *.zip
 node_modules/
+dist/
