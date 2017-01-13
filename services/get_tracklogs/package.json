@@ -1,0 +1,18 @@
+{
+  "name": "get_tracklogs",
+  "version": "1.0.0",
+  "description": "AWS Lambda function to retrieve tracklogs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Tracklogs",
+    "GPX",
+    "GeoJSON",
+    "AWS",
+    "Lambda"
+  ],
+  "author": "Chris Walker",
+  "license": "ISC"
+}
