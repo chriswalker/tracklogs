@@ -2,54 +2,54 @@
 <html lang="en" >
   <head>
     <meta charset="utf-8">
-    <meta name="google-signin-client_id" content="r2g6llfotm44f6r6pfsu0b43qimqjvhm.apps.googleusercontent.com">
-    <title>Strava Single Page App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <title>Tracklogs</title>
 
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="styles/normalize.css">
-    <link rel="stylesheet" href="styles/skeleton.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/app.css">
   </head>
   <body>
-    <div id="app">
-      <navbar v-on:login-msg="login" v-on:logout-msg="logout" :user="user"></navbar>
-      <map></map>
+    <div id="app"> 
+      <nav-bar v-on:login-msg="login" v-on:logout-msg="logout" :user="user"></nav-bar>
+      <map></map>>
     </div>
 
     <!-- Map template -->
     <template id="map-template">
-      <div id="map" class="map"></div>
+        <div id="map" class="map"></div>
     </template>
 
     <!-- Header template -->
     <template id="navbar-template">
-      <nav class="navbar u-full-width">
+      <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
-          <div v-if="user != null">
-            <ul class="navbar-list">
-              <li class="navbar-item">
-                <a class="navbar-link" @click="getActivities()">Activities</a>
-              </li>
-              <li class="navbar-item">
-                <a class="navbar-link">About</a>
-              </li>
-              <li class="navbar-item">
-                <a class="navbar-link">{{user.firstname}} {{user.lastname}}</a>
-              </li>
-              <li class="navbar-item">
-                <a class="navbar-link" @click="logout()">Sign out</a>
-              </li>
-            </ul>
+          <div class="navbar-header">
+            <div class="navbar-brand">Tracklogs</div>
           </div>
-          <div v-else>
-            <ul class="navbar-list">
-              <li class="navbar-item">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-              </li>
-            </ul>
-          </div>
+          <div class="collapse navbar-collapse">
+            <div v-if="user != null">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a class="navbar-link" @click="getActivities()">Activities</a>
+                </li>
+                <li>
+                  <a class="navbar-link">About</a>
+                </li>
+                <li>
+                  <a class="navbar-link">{{user.firstname}} {{user.lastname}}</a>
+                </li>
+                <li>
+                  <a @class="navbar-link" @click="logout()">Sign out</a>
+                </li>
+              </ul>
+            </div>
+            <div v-else>
+              <button type="button" class="btn btn-default navbar-btn" @click="signInBtnClicked()">Sign in</button>
+            </div>
+          </div> <!-- /.navbar-collapse -->
         </div>
+        <login-dialog></login-dialog>
       </nav>
     </template>
 
@@ -60,7 +60,31 @@
         </div>
       </div>
     </template>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Login dialog -->
+    <template id="logindialog-template">
+      <div id="login-dialog" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Sign-in</h4>
+            </div>
+            <div class="modal-body">
+              <input id="username" type="text" required placeholder="Enter your username">
+              <input id="password" type="password" required placeholder="Enter your password">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" @click="login()">Sign in</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal --> 
+    </template> 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/bundle.js"></script>
   </body>
 </html>
