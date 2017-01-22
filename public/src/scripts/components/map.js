@@ -16,25 +16,33 @@ Vue.component('map', {
       center: [ -0.558759, 51.315885 ],
       zoom: 14
     })
+    let obj = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch('https://f0uergii0e.execute-api.eu-west-1.amazonaws.com/Test/tracklogs', obj).then(response => {
+      return response.json() 
+    }).then(resp => {
+      let json = JSON.parse(resp.body)
+      map.addSource('Initial_Tracklog', {
+        'type': 'geojson',
+        'data': json.Items[0].geoJson
+      })
+      map.addLayer({
+        'id': json.Items[0].tracklogDate.toString(),
+        'type': 'line',
+        'source': 'Initial_Tracklog',
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#000',
+          'line-width': 4
+        }
+      })
+    })
   },
-  methods: {
-    // Gets the default location to center the map; looks in local
-    // storage first, then gets the devices location (if allowed)
-    // and finally falling back to a default value putting the map
-    // centre over Europe
-    // getLocation: function () {
-    //   // If in local storage
-    //   // else if we have geolocation
-    //   var position
-    //   if ('geolocation' in navigator) {
-    //     navigator.geolocation.getCurrentPosition((pos) => {
-    //       position = new mapboxgl.LngLat(pos.coords.longitude, pos.coords.latitude)
-    //     })
-    //   } else {
-    //     // else return default
-    //   }
-    //
-    //   return position
-    // }
-  }
 })
